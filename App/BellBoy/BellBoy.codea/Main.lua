@@ -5,6 +5,7 @@ supportedOrientations(LANDSCAPE_ANY)
 function setup()
     rectMode(CENTER)
     spriteMode(CENTER)
+    font("DS-Digital")
     
 end
 
