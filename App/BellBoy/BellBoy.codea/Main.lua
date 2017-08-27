@@ -111,6 +111,26 @@ end
             text("WELCOME, HOW CAN BELLBOY",WIDTH/2,HEIGHT-555*xw)
             text("BE OF ASSISTANCE",WIDTH/2,HEIGHT-639*xw)
         end
+        if screen == 4 then
+            fill(255,255,255,.89*255)
+            rect(WIDTH/2,97*xw,WIDTH,194*xw)
+            sprite("Project:place",WIDTH/2,97*xw,400*xw)
+            fill(0,0,0,181)
+            rect(WIDTH/2,HEIGHT-304*xw,900*xw,500*xw)
+            font("DS-Digital")
+            fill(textWhite)
+            fontSize(60*xw)
+            text("BELLBOY",188*xw,HEIGHT-115*xw)
+            fontSize(35*xw)
+            text("BACK",885*xw,112*xw)
+            sprite("Project:back",825*xw,115*xw,53*xw)
+            sprite("Project:menu",WIDTH/2,HEIGHT-342*xw,734*xw)
+            if CurrentTouch.state == BEGAN and touched and CurrentTouch.y < HEIGHT-575*xw then
+                touched = false
+                screen = screen + 1
+                delivered = 330
+            end
+        end
 end
 
 
