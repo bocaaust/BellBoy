@@ -12,7 +12,7 @@ function setup()
     FPS = 60
     username = ""
     room = 0
-    screen = 4
+    screen = 1
     boyTimer = 0
     xw = WIDTH/1024
     textWhite = color(250,244,244,255)
@@ -133,7 +133,13 @@ end
             for i=1,4 do
                 if CurrentTouch.y < HEIGHT-(201-25)*xw-(50*(i-1))*xw and CurrentTouch.y > HEIGHT-(201+25)*xw-(50*(i-1))*xw then
                     screen = 4+(i-1)*3
-                    if i > 1 then screen = screen + 1 end
+                    if i > 1 then
+                        screen = screen + 1
+                        delivered = math.random(300,900)
+                        initial = delivered
+
+                    end
+
                 end
             end
         end
