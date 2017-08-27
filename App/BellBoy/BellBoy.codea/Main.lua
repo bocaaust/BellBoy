@@ -3,16 +3,16 @@ displayMode(FULLSCREEN_NO_BUTTONS)
 supportedOrientations(LANDSCAPE_ANY)
 -- Use this function to perform your initial setup
 function setup()
+    initial = 0
     touched = true
     rectMode(CENTER)
     spriteMode(CENTER)
-    delivering = 0
+    delivered = 0
     textMode(CENTER)
-    minutes = 0
+    FPS = 60
     username = ""
     room = 0
-    seconds = 0
-    screen = 1
+    screen = 4
     boyTimer = 0
     xw = WIDTH/1024
     textWhite = color(250,244,244,255)
@@ -37,6 +37,7 @@ end
 
 -- This function gets called once every frame
 function draw()
+        FPS = FPS * 0.9 + 0.1 / DeltaTime
     -- This sets a dark background color 
         background(255, 255, 255, 255)
         sprite(screenList[screen],WIDTH/2,HEIGHT/2,WIDTH,HEIGHT)
@@ -65,7 +66,19 @@ end
         end
         if (screen-1)%3 ~= 0 and screen > 2 and screen ~= 4 then
         fill(255,255,255,.89*255)
-        rect(WIDTH/2,HEIGHT-597,WIDTH,194)
+        rect(WIDTH/2,HEIGHT-597,WIDTH,194*xw)
+
+        if delivered > 0 then
+            sprite("Project:cancel",717*xw,HEIGHT-596*xw,477*xw)
+            delivered = delivered - 1./FPS
+            fill(87,87,87,255)
+            x = 141*xw
+            y = 172*xw
+            for i=0,math.floor(100*delivered/initial) do
+                ellipse(x+72.5*xw*math.cos(i*2*math.pi/100),y+72.5*xw*math.sin(i*2*math.pi/100),16)
+            end
+        end
+
         fill(0,0,0,181)
         rect(201.5*xw,HEIGHT-192*xw,290*xw,271*xw)
         font("DS-Digital")
@@ -73,12 +86,11 @@ end
         fontSize(60*xw)
         text("BELLBOY",188*xw,HEIGHT-115*xw)
         fontSize(25*xw)
-        text(username.." - "..room,WIDTH*3.4/5,HEIGHT*7/8)
         font("Arial")
         fontSize(22*xw)
         if CurrentTouch.state == BEGAN and touched and CurrentTouch.x > 56.5*xw and CurrentTouch.x < (56.5+201.5)*xw then
             touched = false
-            if delivering > 0 then
+            if delivered > 0 then
                 screen = screen + 2
             elseif CurrentTouch.y < HEIGHT-219*xw and CurrentTouch.y > HEIGHT-(219+25)*xw then
                 screen = 4
@@ -94,7 +106,8 @@ end
             screen = screen - 2
         end
         if screen == 3 then
-            boyTimer = boyTimer + 1./30.
+            text(username.." - "..room,WIDTH*3.4/5,HEIGHT*7/8)
+            boyTimer = boyTimer + 1./FPS.
             if boyTimer <= 5 or (boyTimer <= 10.2 and boyTimer >= 5.2) or (boyTimer >= 10.4 and boyTimer <= 15.4) then
                 face = 1
             elseif (boyTimer > 5 and boyTimer < 5.2) or (boyTimer > 10 and boyTimer < 10.2) then
@@ -117,18 +130,25 @@ end
             sprite("Project:place",WIDTH/2,97*xw,400*xw)
             fill(0,0,0,181)
             rect(WIDTH/2,HEIGHT-304*xw,900*xw,500*xw)
+            sprite("Project:menu",WIDTH/2,HEIGHT-342*xw,734*xw)
             font("DS-Digital")
             fill(textWhite)
             fontSize(60*xw)
             text("BELLBOY",188*xw,HEIGHT-115*xw)
             fontSize(35*xw)
-            text("BACK",885*xw,112*xw)
-            sprite("Project:back",825*xw,115*xw,53*xw)
-            sprite("Project:menu",WIDTH/2,HEIGHT-342*xw,734*xw)
-            if CurrentTouch.state == BEGAN and touched and CurrentTouch.y < HEIGHT-575*xw then
-                touched = false
-                screen = screen + 1
-                delivered = 330
+            text("BACK",885*xw,HEIGHT-112*xw)
+            sprite("Project:back",825*xw,HEIGHT-115*xw,53*xw)
+            if CurrentTouch.state == BEGAN and touched then
+                if CurrentTouch.y < HEIGHT-575*xw then
+                    touched = false
+                    screen = screen + 1
+                    delivered = 330
+                    initial = delivered
+                end
+                if CurrentTouch.y > HEIGHT/4*3 and CurrentTouch.x > WIDTH*6.5/8 then
+                    touched = false
+                    screen = 3
+                end
             end
         end
 end
