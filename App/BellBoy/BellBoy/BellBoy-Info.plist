@@ -35,6 +35,7 @@
 	<key>UIAppFonts</key>
 	<array>
 		<string>Inconsolata.otf</string>
+		<string>DS-Digital.otf</string>
 		<string>SourceSansPro-Bold.otf</string>
 		<string>SourceSansPro-Regular.otf</string>
 		<string>SourceSansPro-Semibold.otf</string>
