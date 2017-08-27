@@ -129,7 +129,7 @@ end
             touched = false
 
             for i=1,4 do
-                if CurrentTouch.y < HEIGHT-(201-25)*xw-(50*(i-1))*xw and CurrentTouch.y > HEIGHT-(201+25)*xw-(50*(i-1))*xw then
+                if CurrentTouch.y < HEIGHT-(201-15)*xw-(31*(i-1))*xw and CurrentTouch.y > HEIGHT-(201+15)*xw-(31*(i-1))*xw then
                     if delivered > 0 then
                         screen = screen + 2
                     else
