@@ -127,17 +127,19 @@ end
         fontSize(22*xw)
         if CurrentTouch.state == BEGAN and touched and CurrentTouch.x > 56.5*xw and CurrentTouch.x < (56.5+201.5)*xw then
             touched = false
-            if delivered > 0 then
-                screen = screen + 2
-            end
+
             for i=1,4 do
                 if CurrentTouch.y < HEIGHT-(201-25)*xw-(50*(i-1))*xw and CurrentTouch.y > HEIGHT-(201+25)*xw-(50*(i-1))*xw then
+                    if delivered > 0 then
+                        screen = screen + 2
+                    else
                     screen = 4+(i-1)*3
                     if i > 1 then
                         screen = screen + 1
                         delivered = math.random(300,900)
                         initial = delivered
 
+                    end
                     end
 
                 end
